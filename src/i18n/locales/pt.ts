@@ -21,15 +21,19 @@ export default {
     features: {
       mood: {
         title: 'Registre Seu Humor',
-        description: 'Registre suas emoções e sentimentos diários com nossa interface intuitiva. Adicione notas e acompanhe padrões ao longo do tempo.'
+        description: 'Registre suas emoções e sentimentos diários com nossa interface intuitiva. Adicione notas e acompanhe padrões ao longo do tempo.',
+        saveEntry: 'Salvar Entrada'
       },
       habits: {
         title: 'Construa Melhores Hábitos',
-        description: 'Crie e acompanhe hábitos diários que melhoram seu bem-estar. Mantenha-se motivado com sequências e acompanhamento de progresso.'
+        description: 'Crie e acompanhe hábitos diários que melhoram seu bem-estar. Mantenha-se motivado com sequências e acompanhamento de progresso.',
+        addHabit: 'Adicionar Hábito',
+        logHabit: 'Completar'
       },
       notes: {
         title: 'Notas Rápidas',
-        description: 'Capture pensamentos, reflexões e momentos memoráveis ao longo do seu dia. Mantenha tudo organizado em um só lugar.'
+        description: 'Capture pensamentos, reflexões e momentos memoráveis ao longo do seu dia. Mantenha tudo organizado em um só lugar.',
+        addNote: 'Adicionar Notas'      
       },
       analytics: {
         title: 'Análises Perspicazes',

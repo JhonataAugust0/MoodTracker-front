@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Habit } from '../../stores/habit'
 import { useHabitStore } from '../../stores/habit'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   habits: Habit[]
@@ -10,7 +13,9 @@ const props = defineProps<{
 const habitStore = useHabitStore()
 
 const sortedHabits = computed(() => {
-  return [...props.habits].sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+  return [...props.habits].sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  )
 })
 </script>
 
@@ -27,9 +32,9 @@ const sortedHabits = computed(() => {
       </div>
       <button
         @click="habitStore.checkHabit(habit.id)"
-        class="btn-primary"
+        class="btn-primary bg-purple-600 text-white px-4 py-1 rounded-lg hover:bg-purple-700 transition-colors"
       >
-        Complete
+      {{ t(`landing.features.habits.logHabit`) }}
       </button>
     </div>
   </div>

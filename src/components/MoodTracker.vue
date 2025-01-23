@@ -5,20 +5,23 @@ import { useMoodStore } from '../stores/mood'
 
 const { t } = useI18n()
 const moodStore = useMoodStore()
-const selectedMood = ref(3)
+const selectedMood = ref(6)
 const note = ref('')
 
 const moods = [
   { value: 0, emoji: '😢', label: 'Very Sad' },
   { value: 1, emoji: '😔', label: 'Sad' },
-  { value: 2, emoji: '😐', label: 'Neutral' },
-  { value: 3, emoji: '🙂', label: 'Good' },
-  { value: 4, emoji: '😊', label: 'Very Good' },
-  { value: 5, emoji: '😄', label: 'Excellent' }
+  { value: 2, emoji: '😠', label: 'angry' },
+  { value: 3, emoji: '😡', label: 'very angry' },
+  { value: 4, emoji: '😐', label: 'Neutral' },
+  { value: 5, emoji: '🙂', label: 'Good' },
+  { value: 6, emoji: '😊', label: 'Very Good' },
+  { value: 7, emoji: '😄', label: 'Excellent' }
 ]
 
-const saveMoodEntry = () => {
-  moodStore.addMoodEntry(selectedMood.value, note.value)
+const saveMoodEntry = async () => {
+  const selectedMoodLabel = moods.find(mood => mood.value === selectedMood.value)?.label || ''
+  await moodStore.addMoodEntry(selectedMoodLabel, selectedMood.value, note.value )
   note.value = ''
 }
 </script>
@@ -51,7 +54,7 @@ const saveMoodEntry = () => {
       @click="saveMoodEntry"
       class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
     >
-      Save Entry
+      {{ t(`landing.features.mood.saveEntry`) }}
     </button>
   </div>
 </template>

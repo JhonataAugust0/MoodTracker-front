@@ -14,9 +14,9 @@ const password = ref('')
 
 const handleSubmit = async () => {
   if (isLogin.value) {
-    authStore.login(email.value, password.value)
+    await authStore.login(email.value, password.value)
   } else {
-    authStore.register(email.value, password.value)
+    await authStore.register(email.value, password.value)
   }
   router.push('/dashboard')
 }

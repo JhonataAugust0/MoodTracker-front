@@ -1,41 +1,38 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import ApiService from '../integrations/backend/apiService'
+import type { Mood, CreateMoodDto } from '../types/api'
 
-export interface MoodEntry {
-  id: string
-  mood: number
-  note: string
-  timestamp: Date | number
-}
+const apiService = ApiService 
+
 
 export const useMoodStore = defineStore('mood', () => {
-  const moodEntries = ref<MoodEntry[]>([])
+  const moodEntries = ref<Mood[]>([])
   
-  function addMoodEntry(mood: number, note: string) {
-    const now = new Date()
-    const brazilTime = now.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })
-    const timestamp = new Date(brazilTime).getTime()
-
-    const entry: MoodEntry = {
-      id: crypto.randomUUID(),
-      mood,
-      note,
-      timestamp
+  async function addMoodEntry(moodType: string, intensity: number, notes: string, tagIds: number[] = []) {
+    const entry: CreateMoodDto = {
+      moodType,
+      intensity,
+      notes,
+      tagIds,
+      timestamp: new Date().toISOString()
     }
-    moodEntries.value.push(entry)
+    
+    try {
+      await apiService.createMood(entry)
+      await fetchMoods() 
+    } catch (error) {
+      console.error('Erro ao salvar humor:', error)
+    }
   }
 
-  function addMoodEntryWithPastDate(mood: number, note: string, daysAgo: number) {
-    const pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - daysAgo); // Subtrai 'daysAgo' dias da data atual
-  
-    const entry: MoodEntry = {
-      id: crypto.randomUUID(),
-      mood,
-      note,
-      timestamp: pastDate,
-    };
-    moodEntries.value.push(entry)
+  async function fetchMoods() {
+    try {
+      const moods = await ApiService.getMoods()
+      moodEntries.value = moods
+    } catch (error) {
+      console.error('Erro ao buscar registros de humor:', error)
+    }
   }
 
   function getMoodEntries() {
@@ -46,6 +43,6 @@ export const useMoodStore = defineStore('mood', () => {
     moodEntries,
     addMoodEntry,
     getMoodEntries,
-    addMoodEntryWithPastDate,
+    fetchMoods
   }
 })

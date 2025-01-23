@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import HabitList from './HabitList.vue'
@@ -8,6 +8,10 @@ import NewHabitForm from './NewHabitForm.vue'
 const { t } = useI18n()
 const showNewHabitForm = ref(false)
 const habitStore = useHabitStore()
+
+onMounted(async () => {
+  await habitStore.fetchHabits()
+})
 </script>
 
 <template>
@@ -16,13 +20,17 @@ const habitStore = useHabitStore()
       <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t(`dashboard.habits`) }}</h2>
       <button
         @click="showNewHabitForm = true"
-        class="btn-primary"
+        class="btn-primary bg-purple-600 text-white px-4 py-1 rounded-lg hover:bg-purple-700 transition-colors"
       >
-        Add Habit
+        {{ t(`landing.features.habits.addHabit`) }}
       </button>
     </div>
-
+    <div v-if="habitStore.isLoading" class="flex justify-center">
+      <span class="loading">Loading...</span>
+    </div>
     <HabitList :habits="habitStore.habits" />
+
+    <!-- <HabitList :habits="habitStore.habits" /> -->
     
     <NewHabitForm
       v-if="showNewHabitForm"

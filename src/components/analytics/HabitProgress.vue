@@ -9,11 +9,23 @@ const habitStore = useHabitStore()
 const showMaximized = ref(false)
 
 const habitProgress = computed(() => {
+  if (habitStore.isLoading) return []
+  
   return habitStore.habits.map(habit => ({
     ...habit,
-    completions: habitStore.getHabitProgress(habit.id)
+    completions: habitStore.getHabitProgress(habit.id),
   }))
 })
+
+function getTargetByFrequency(frequency: string) {
+  switch(frequency) {
+    case 'daily': return 30
+    case 'weekly': return 4
+    case 'monthly': return 1
+    default: return 30
+  }
+}
+
 </script>
 
 <template>
@@ -21,8 +33,10 @@ const habitProgress = computed(() => {
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t(`dashboard.habitProgress`) }}</h2>
     </div>
-    
-    <div class="space-y-4">
+    <div v-if="habitStore.isLoading" class="flex justify-center">
+      <span class="loading">Loading...</span>
+    </div>
+    <div v-else class="space-y-4">
       <div
         v-for="habit in habitProgress"
         :key="habit.id"
@@ -45,3 +59,7 @@ const habitProgress = computed(() => {
     </div>
   </div>
 </template>
+<!-- :style="{
+              width: `${Math.min(100, (habit.completions / habit.target) * 100)}%`,
+              backgroundColor: habit.color
+            }" -->

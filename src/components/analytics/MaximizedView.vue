@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useMoodStore } from '../../stores/mood'
 import { useHabitStore } from '../../stores/habit'
 import MoodCalendar from './MoodCalendar.vue'
@@ -20,6 +20,21 @@ const viewMode = ref<'calendar' | 'chart'>(props.initialView)
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
 
+const handleClickOutside = (event: MouseEvent) => {
+  const target = event.target as HTMLElement
+  if (target.classList.contains('modal-overlay')) {
+    emit('close')
+  }
+}
+
+onMounted(async () => {
+  if (props.component === 'habit') {
+    await habitStore.fetchHabits()
+  } else if (props.component === 'mood') {
+    await moodStore.fetchMoods()
+  }
+})
+
 const toggleView = () => {
   viewMode.value = viewMode.value === 'calendar' ? 'chart' : 'calendar'
 }
@@ -27,41 +42,39 @@ const toggleView = () => {
 
 <template>
   <Transition name="fade">
-    <div v-if="show" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div 
+      v-if="show" 
+      class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 modal-overlay"
+      @click="handleClickOutside"
+    >
       <div class="bg-white dark:bg-gray-800 rounded-lg w-full max-w-6xl h-[90vh] flex flex-col">
-        <!-- Header -->
         <div class="p-4 border-b dark:border-gray-700 flex justify-between items-center">
           <h2 class="text-xl font-bold">
-            {{ component === 'mood' ? 'Mood Analysis' : 'Habit Progress' }}
+            {{ component === 'mood' ? 'Análise de Humor' : 'Progresso dos Hábitos' }}
           </h2>
           <div class="flex items-center gap-4">
             <button
               @click="toggleView"
-              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-              :title="viewMode === 'calendar' ? 'Switch to Chart' : 'Switch to Calendar'"
+              class="p-2 bg-gray-500 dark:bg-black-300 rounded-lg"
             >
-              <span v-if="viewMode === 'calendar'">📊</span>
-              <span v-else>📅</span>
+              <i class="fas" :class="viewMode === 'calendar' ? 'fa-chart-bar' : 'fa-calendar'"></i>
             </button>
-            <button
+            <button 
               @click="emit('close')"
-              class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+              class="p-2 bg-red-400 dark:bg-red-400 rounded-lg"
             >
-              ✕
+              <i class="fas fa-times"></i>
             </button>
           </div>
         </div>
 
-        <!-- Content -->
         <div class="flex-1 overflow-auto p-6">
-          <Transition name="fade" mode="out-in">
-            <component
-              :is="viewMode === 'calendar' ? MoodCalendar : (component === 'mood' ? MoodChart : HabitProgress)"
-              :class="{ 'h-full': viewMode === 'calendar' }"
-              :moodData="moodStore.moodEntries"
-              :habitData="habitStore.habitChecks"
-            />
-          </Transition>
+          <component
+            :is="component === 'mood' 
+              ? (viewMode === 'calendar' ? MoodCalendar : MoodChart) 
+              : HabitProgress"
+            :store="component === 'mood' ? moodStore : habitStore"
+          />
         </div>
       </div>
     </div>
@@ -71,8 +84,9 @@ const toggleView = () => {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s;
+  transition: opacity 0.3s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

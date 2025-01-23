@@ -4,6 +4,8 @@ import Auth from '../views/Auth.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Terms from '../views/Terms.vue'
 import { useAuthStore } from '../stores/auth'
+import Cookies from 'js-cookie'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,8 +37,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next() //'/auth'
+  if (to.meta.requiresAuth && !Cookies.get('auth_token')) {
+    next('/auth')
   } else {
     next()
   }

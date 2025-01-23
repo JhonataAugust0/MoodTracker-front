@@ -21,15 +21,19 @@ export default {
     features: {
       mood: {
         title: 'Track Your Mood',
-        description: 'Record your daily emotions and feelings with our intuitive interface. Add notes and track patterns over time.'
+        description: 'Record your daily emotions and feelings with our intuitive interface. Add notes and track patterns over time.',
+        saveEntry: 'Save Entry'
       },
       habits: {
         title: 'Build Better Habits',
-        description: 'Create and track daily habits that improve your well-being. Stay motivated with streaks and progress tracking.'
+        description: 'Create and track daily habits that improve your well-being. Stay motivated with streaks and progress tracking.',
+        addHabit: 'Add Habit',
+        logHabit: 'Complete'
       },
       notes: {
         title: 'Quick Notes',
-        description: 'Capture thoughts, reflections, and memorable moments throughout your day. Keep everything organized in one place.'
+        description: 'Capture thoughts, reflections, and memorable moments throughout your day. Keep everything organized in one place.',
+        addNote: 'Add Note'
       },
       analytics: {
         title: 'Insightful Analytics',

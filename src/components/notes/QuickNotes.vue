@@ -16,9 +16,9 @@ const showNewNote = ref(false)
       <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t(`dashboard.quickNotes`) }}</h2>
       <button
         @click="showNewNote = true"
-        class="btn-primary"
+        class="btn-primary bg-purple-600 text-white px-4 py-1 rounded-lg hover:bg-purple-700 transition-colors"
       >
-        Add Note
+        {{ t(`landing.features.mood.saveEntry`) }}
       </button>
     </div>
 
