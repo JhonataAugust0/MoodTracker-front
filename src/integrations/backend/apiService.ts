@@ -34,7 +34,7 @@ class ApiService {
 
   async register(registerData: RegisterRequest) {
     const response = await this.axiosInstance.post('/users', registerData);
-    return response.data;
+    return response;
   }
 
   async refreshToken(refreshToken: string) {

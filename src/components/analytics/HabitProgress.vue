@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
-import MaximizedView from './MaximizedView.vue'
+import type { Habit } from '../../types/api'
 
 const { t } = useI18n()
 const habitStore = useHabitStore()
-const showMaximized = ref(false)
+
+onMounted(async () => {
+  await habitStore.fetchHabits()
+})
 
 const habitProgress = computed(() => {
   if (habitStore.isLoading) return []
@@ -16,15 +19,6 @@ const habitProgress = computed(() => {
     completions: habitStore.getHabitProgress(habit.id),
   }))
 })
-
-function getTargetByFrequency(frequency: string) {
-  switch(frequency) {
-    case 'daily': return 30
-    case 'weekly': return 4
-    case 'monthly': return 1
-    default: return 30
-  }
-}
 
 </script>
 
@@ -44,12 +38,12 @@ function getTargetByFrequency(frequency: string) {
       >
         <div class="flex-1">
           <h3 class="font-semibold">{{ habit.name }}</h3>
-          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+          <div class="relative w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
             <div
-              class="h-full rounded-full"
+              class="absolute h-full rounded-full transition-all duration-300 ease-in-out"
               :style="{
-                width: `${Math.min(100, (habit.completions / 30) * 100)}%`,
-                backgroundColor: habit.color
+                width: `${Math.min(100, (habit.completions / habit.frequencyTarget) * 100)}%`,
+                backgroundColor: habit.color || '#FFFFFF' 
               }"
             ></div>
           </div>
@@ -60,6 +54,6 @@ function getTargetByFrequency(frequency: string) {
   </div>
 </template>
 <!-- :style="{
-              width: `${Math.min(100, (habit.completions / habit.target) * 100)}%`,
-              backgroundColor: habit.color
-            }" -->
+  width: `${Math.min(100, (habit.completions / habit.target) * 100)}%`,
+  backgroundColor: habit.color
+}" -->

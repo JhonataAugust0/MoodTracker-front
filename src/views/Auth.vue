@@ -9,14 +9,20 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const isLogin = ref(true)
+const name = ref('')
 const email = ref('')
 const password = ref('')
+const confirmPassword = ref('')
 
 const handleSubmit = async () => {
   if (isLogin.value) {
     await authStore.login(email.value, password.value)
   } else {
-    await authStore.register(email.value, password.value)
+    if (password.value !== confirmPassword.value) {
+      alert(t('auth.passwordMismatch'))
+      return
+    }
+    await authStore.register(email.value, password.value, name.value)
   }
   router.push('/dashboard')
 }
@@ -30,6 +36,19 @@ const handleSubmit = async () => {
       </h2>
       
       <form @submit.prevent="handleSubmit" class="space-y-4">
+        <template v-if="!isLogin">
+          <div>
+            <label class="block text-sm font-medium mb-1">{{ t('auth.name') }}</label>
+            <input
+              v-model="name"
+              type="text"
+              required
+              class="w-full rounded-lg"
+              :placeholder="t('auth.namePlaceholder')"
+            />
+          </div>
+        </template>
+
         <div>
           <label class="block text-sm font-medium mb-1">{{ t('auth.email') }}</label>
           <input
@@ -37,6 +56,7 @@ const handleSubmit = async () => {
             type="email"
             required
             class="w-full rounded-lg"
+            :placeholder="t('auth.emailPlaceholder')"
           />
         </div>
         
@@ -47,10 +67,24 @@ const handleSubmit = async () => {
             type="password"
             required
             class="w-full rounded-lg"
+            :placeholder="t('auth.passwordPlaceholder')"
           />
         </div>
+
+        <template v-if="!isLogin">
+          <div>
+            <label class="block text-sm font-medium mb-1">{{ t('auth.confirmPassword') }}</label>
+            <input
+              v-model="confirmPassword"
+              type="password"
+              required
+              class="w-full rounded-lg"
+              :placeholder="t('auth.confirmPasswordPlaceholder')"
+            />
+          </div>
+        </template>
         
-        <button type="submit" class="w-full btn-primary">
+        <button type="submit" class="w-full btn-primary bg-purple-600 text-white px-4 py-1 rounded-lg hover:bg-purple-700 transition-colors">
           {{ isLogin ? t('auth.loginButton') : t('auth.registerButton') }}
         </button>
       </form>

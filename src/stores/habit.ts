@@ -16,7 +16,6 @@ export const useHabitStore = defineStore('habit', () => {
     try {
       const response = await apiService.getHabits()
       habits.value = response
-      // Carrega completions para cada hábito
       await Promise.all(habits.value.map(habit => fetchHabitCompletions(habit.id)))
     } catch (err) {
       error.value = 'Erro ao carregar hábitos'
@@ -62,7 +61,7 @@ export const useHabitStore = defineStore('habit', () => {
     }
   }
 
-  function getHabitProgress(habitId: number): number {
+  function getHabitProgress(habitId: number) {
     return habitCompletions.value.filter(c => c.habitId === habitId).length
   }
 

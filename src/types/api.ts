@@ -25,8 +25,19 @@ export interface Habit {
   createdAt: string;
   updatedAt: string;
   isActive: boolean;
-  completions?: HabitCompletion[];
+  completions: HabitCompletion[];
   tags?: Tag[];
+  frequencyTarget: number;
+  frequencyType: number;
+  color: string;
+}
+
+export enum HabitFrequency {
+  DAILY = 1,
+  WEEKLY = 2,
+  MONTHLY = 3,
+  YEARLY = 4, 
+  CUSTOM = 5,
 }
 
 export interface CreateHabitDto {
@@ -35,6 +46,9 @@ export interface CreateHabitDto {
   isActive?: boolean;
   tagIds?: number[];
   createdAt?: string;
+  frequencyTarget: number;
+  FrequencyType: HabitFrequency,
+  color: string;
 }
 
 export interface Mood {

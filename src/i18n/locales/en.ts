@@ -6,14 +6,34 @@ export default {
   auth: {
     login: 'Login',
     register: 'Register',
+    name: 'Name',
     email: 'Email',
     password: 'Password',
+    confirmPassword: 'Confirm Password',
     loginButton: 'Sign In',
     registerButton: 'Sign Up',
     noAccount: "Don't have an account?",
     hasAccount: 'Already have an account?',
     registerLink: 'Register now',
-    loginLink: 'Login here'
+    loginLink: 'Login here',
+    namePlaceholder: 'Enter your name',
+    emailPlaceholder: 'Enter your email',
+    passwordPlaceholder: 'Enter your password',
+    confirmPasswordPlaceholder: 'Confirm your password',
+    passwordMismatch: 'Passwords do not match'
+  },
+  buttons: {
+    save: 'Save',
+    add: 'Add',
+    log: 'Log',
+    complete: 'Complete',
+    cancel: 'Cancel',
+  },
+  notes: {
+    label: 'New Note',
+    content: 'Content',
+    color: 'Color',
+    addTag: 'Add tag',
   },
   landing: {
     title: 'Track Your Mood Journey',
@@ -48,10 +68,33 @@ export default {
     quickNotes: 'Quick Notes',
     moodLog: 'Mood log',
     habitProgress: 'Habit Progress',
+    addNote: 'Add a note about your day...'
+  },
+  moods: {
+    verySad: 'Very Sad',
+    sad: 'Sad',
+    angry: 'Angry',
+    veryAngry: 'Very Angry',
+    neutral: 'Neutral',
+    good: 'Good',
+    veryGood: 'Very Good',
+    excellent: 'Excellent'
   },
   habits: {
     addTag: 'Add tag...',
-    tags: 'Tags'
+    tags: 'Tags',
+    new: 'New habit',
+    description: 'Description',
+    name: 'Name',
+    color: 'Color',
+    frequency: {
+      label: 'Frequency',
+      daily: 'Diary',
+      weekly: 'Weekly',
+      monthly: 'Monthly',
+      yearly: 'Yearly',
+      custom: 'Custom'
+    }
   },
   terms: {
     title: "Terms of Use",

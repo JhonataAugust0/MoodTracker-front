@@ -29,8 +29,6 @@ onMounted(async () => {
       <span class="loading">Loading...</span>
     </div>
     <HabitList :habits="habitStore.habits" />
-
-    <!-- <HabitList :habits="habitStore.habits" /> -->
     
     <NewHabitForm
       v-if="showNewHabitForm"

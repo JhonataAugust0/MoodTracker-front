@@ -21,12 +21,12 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const register = async (email: string, password: string) => {
-    if (email && password) {
-      isAuthenticated.value = true
-      user.value = { email }
-      Cookies.remove('auth_token')
-    }
+  const register = async (email: string, password: string, name: string) => {
+    let response = await apiService.register({ email, password, name })
+      if (response.status === 200)
+      {
+        await login(email, password)
+      }
   }
 
   const logout = () => {

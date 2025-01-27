@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'save', content: string, color: string, tags: string[]): void
@@ -27,11 +29,11 @@ const save = () => {
 <template>
   <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
-      <h3 class="text-xl font-bold mb-4">New Note</h3>
+      <h3 class="text-xl font-bold mb-4">{{ t('notes.label') }}</h3>
       
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium mb-1">Content</label>
+          <label class="block text-sm font-medium mb-1">{{ t('notes.content') }}</label>
           <textarea
             v-model="content"
             class="w-full rounded-lg"
@@ -40,7 +42,7 @@ const save = () => {
         </div>
 
         <div>
-          <label class="block text-sm font-medium mb-1">Color</label>
+          <label class="block text-sm font-medium mb-1">{{ t('notes.color') }}</label>
           <input
             v-model="color"
             type="color"
@@ -68,9 +70,9 @@ const save = () => {
             />
             <button
               @click="addTag"
-              class="btn-primary"
+              class="btn-primary bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
             >
-              Add Tag
+            {{ t('notes.addTag') }}
             </button>
           </div>
         </div>
@@ -79,15 +81,15 @@ const save = () => {
       <div class="flex justify-end space-x-4 mt-6">
         <button
           @click="emit('close')"
-          class="btn bg-gray-200 text-gray-800 hover:bg-gray-300"
+          class="btn bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-400"
         >
-          Cancel
+        {{ t('buttons.cancel') }}
         </button>
         <button
           @click="save"
-          class="btn-primary"
+          class="btn-primary bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors"
         >
-          Save
+        {{ t('buttons.save') }}
         </button>
       </div>
     </div>

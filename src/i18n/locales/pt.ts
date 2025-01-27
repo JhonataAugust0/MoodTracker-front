@@ -6,14 +6,34 @@ export default {
   auth: {
     login: 'Entrar',
     register: 'Registrar',
+    name: 'Nome',
     email: 'Email',
     password: 'Senha',
+    confirmPassword: 'Confirmar Senha',
     loginButton: 'Entrar',
     registerButton: 'Registrar',
     noAccount: 'Não tem uma conta?',
     hasAccount: 'Já tem uma conta?',
     registerLink: 'Registre-se agora',
-    loginLink: 'Entre aqui'
+    loginLink: 'Entre aqui',
+    namePlaceholder: 'Digite seu nome',
+    emailPlaceholder: 'Digite seu email',
+    passwordPlaceholder: 'Digite sua senha',
+    confirmPasswordPlaceholder: 'Confirme sua senha',
+    passwordMismatch: 'As senhas não coincidem'
+  },
+  buttons: {
+    save: 'Salvar',
+    add: 'Adicionar',
+    log: 'Registrar',
+    complete: 'Completar',
+    cancel: 'Cancelar',
+  },
+  notes: {
+    label: 'Nova Nota',
+    content: 'Conteúdo',
+    color: 'Cor',
+    addTag: 'Adicionar tag',
   },
   landing: {
     title: 'Acompanhe Sua Jornada de Humor',
@@ -48,10 +68,33 @@ export default {
     quickNotes: 'Notas Rápidas',
     moodLog: 'Registro de Humor',
     habitProgress: 'Progresso de Hábitos',
+    addNote: 'Adicione uma nota sobre seu dia...',
   },
+  moods: {
+    verySad: 'Muito Triste',
+    sad: 'Triste',
+    angry: 'Irritado',
+    veryAngry: 'Muito Irritado',
+    neutral: 'Neutro',
+    good: 'Bem',
+    veryGood: 'Muito Bem',
+    excellent: 'Excelente'
+    },
   habits: {
     addTag: 'Adicionar tag...',
-    tags: 'Tags'
+    tags: 'Tags',
+    new: 'Novo hábito',
+    name: 'Nome',
+    color: 'Cor',
+    description: 'Descrição',
+    frequency: {
+      label: 'Frequência',
+      daily: 'Diário',
+      weekly: 'Semanal',
+      monthly: 'Mensal',
+      yearly: 'Anual',
+      custom: 'Personalizado'
+    }
   },
   terms: {
     title: 'Termos de Uso',
