@@ -48,7 +48,7 @@ const habitProgress = computed(() => {
             ></div>
           </div>
         </div>
-        <span class="text-sm">{{ habit.completions }} times</span>
+        <span class="text-sm">{{ habit.completions }} / {{ habit.frequencyTarget }}</span>
       </div>
     </div>
   </div>

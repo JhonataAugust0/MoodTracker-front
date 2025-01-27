@@ -12,6 +12,7 @@ const content = ref('')
 const color = ref('#ffffff')
 const tagInput = ref('')
 const tags = ref<string[]>([])
+const isSubmitting = ref(false)
 
 const addTag = () => {
   if (tagInput.value.trim()) {
@@ -20,9 +21,16 @@ const addTag = () => {
   }
 }
 
-const save = () => {
-  emit('save', content.value, color.value, tags.value)
-  emit('close')
+const save = async () => {
+  if (!content.value.trim()) return
+  
+  isSubmitting.value = true
+  try {
+    await emit('save', content.value, color.value, tags.value)
+    emit('close')
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
