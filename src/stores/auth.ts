@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import ApiService from '../integrations/backend/apiService'
 import Cookies from 'js-cookie'
+import { ChangePasswordRequestDTO, ForgotPasswordRequestDTO } from '../types/api'
 
 const apiService = ApiService
 
@@ -29,6 +30,32 @@ export const useAuthStore = defineStore('auth', () => {
       }
   }
 
+  const changePassword = async (data: ChangePasswordRequestDTO) => {
+    try {
+      let response = await apiService.changePasswordRequest(data)
+      if (response.success === true)
+      {
+        return true
+      }
+    } catch (error) {
+      console.error('Erro ao mudar senha:', error)
+      throw error
+    }
+  }
+
+  const recoverPasswordEmail = async (data: ForgotPasswordRequestDTO) => {
+    try {
+      let response = await apiService.sendRecoverPasswordEmail({ email: data.email })
+      if (response.success === true)
+      {
+        return true
+      }
+    } catch (error) {
+      console.error('Erro ao mudar senha:', error)
+      throw error
+    }
+  }
+  
   const logout = () => {
     isAuthenticated.value = false
     user.value = null
@@ -36,6 +63,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     isAuthenticated,
+    changePassword,
+    recoverPasswordEmail,
     user,
     register,
     login,

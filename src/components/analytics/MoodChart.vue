@@ -32,14 +32,20 @@ const moodData = computed(() => {
     const date = new Date(entry.timestamp).toISOString().split('T')[0];
     if (!acc[date]) {
       acc[date] = {
-        frequencies: [0, 0, 0, 0, 0, 0],
-        notes: [[], [], [], [], [], []]
+        frequencies: [0, 0, 0, 0, 0, 0, 0], // Array aumentado para 7 posições
+        notes: [[], [], [], [], [], [], []]  // Array aumentado para 7 posições
       };
     }
-    acc[date].frequencies[entry.intensity]++;
-    if (entry.notes) {
-      acc[date].notes[entry.intensity].push(entry.notes);
+    
+    if (entry.intensity !== undefined && entry.intensity >= 0 && entry.intensity <= 6) {
+      acc[date].frequencies[entry.intensity]++;
+      if (entry.notes) {
+        acc[date].notes[entry.intensity].push(entry.notes);
+      }
+    } else {
+      console.warn('Intensidade inválida encontrada:', entry);
     }
+    
     return acc;
   }, {});
 

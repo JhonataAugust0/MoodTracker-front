@@ -98,6 +98,11 @@ const handleSubmit = async () => {
           {{ isLogin ? t('auth.registerLink') : t('auth.loginLink') }}
         </button>
       </p>
+      <p class="mt-4 text-center">
+        <a href="/change-password" class="text-purple-600 dark:text-purple-400 hover:underline">
+          {{ t('auth.changePassword') }}
+        </a>
+      </p>
     </div>
   </div>
 </template>

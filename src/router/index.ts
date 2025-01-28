@@ -3,8 +3,10 @@ import Home from '../views/Home.vue'
 import Auth from '../views/Auth.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Terms from '../views/Terms.vue'
-import { useAuthStore } from '../stores/auth'
 import Cookies from 'js-cookie'
+import ChangePassword from '../views/ChangePassword.vue'
+import NotFound from '../views/NotFound.vue'
+import { useAuthStore } from '../stores/auth'
 
 
 const router = createRouter({
@@ -30,7 +32,16 @@ const router = createRouter({
       path: '/terms',
       name: 'terms',
       component: Terms
-    }
+    },
+    {
+      path: '/change-password',
+      name: 'changePassword',
+      component: ChangePassword
+    },
+    {
+      path: '/:catchAll(.*)',
+      component: NotFound, 
+    },
   ]
 })
 

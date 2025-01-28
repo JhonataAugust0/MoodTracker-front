@@ -20,7 +20,24 @@ export default {
     emailPlaceholder: 'Digite seu email',
     passwordPlaceholder: 'Digite sua senha',
     confirmPasswordPlaceholder: 'Confirme sua senha',
-    passwordMismatch: 'As senhas não coincidem'
+    passwordMismatch: 'As senhas não coincidem',
+    changePassword: 'Alterar Senha',
+    currentPassword: 'Senha Atual',
+    newPassword: 'Nova Senha',
+    confirmNewPassword: 'Confirmar Nova Senha',
+    changePasswordButton: 'Alterar Senha',
+    passwordChangeSuccess: 'Senha alterada com sucesso! Redirecionando para o login...',
+    passwordTooShort: 'A senha deve ter pelo menos 6 caracteres',
+    changePasswordError: 'Erro ao alterar a senha. Por favor, tente novamente.',
+    currentPasswordPlaceholder: 'Digite sua senha atual',
+    newPasswordPlaceholder: 'Digite sua nova senha',
+    confirmNewPasswordPlaceholder: 'Confirme sua nova senha',
+    backToLogin: 'Lembra sua senha?',
+    forgotPassword: "Esqueceu sua senha?",
+    resetPassword: "Redefinir Senha",
+    sendResetLink: "Enviar link de redefinição",
+    resetLinkSent: "Link de redefinição enviado para seu email",
+    backToChangePassword: "Voltar para alteração de senha"
   },
   buttons: {
     save: 'Salvar',
@@ -95,6 +112,17 @@ export default {
       yearly: 'Anual',
       custom: 'Personalizado'
     }
+  },
+  notFound: {
+    errorCode: "4😵4",
+    title: "Oops! Página não encontrada",
+    description: "Parece que você se perdeu no espaço-tempo...",
+    emoji: "🚀✨",
+    quote: {
+      text: "\"No fim, não são os anos em sua vida que contam, e sim a vida em seus anos... \n...e as páginas que você consegue encontrar!\"",
+      author: " - Abraham Lincoln (talvez)"
+    },
+    button: "Voltar para Casa 🏠"
   },
   terms: {
     title: 'Termos de Uso',

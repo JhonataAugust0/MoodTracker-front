@@ -10,7 +10,9 @@ import type {
   CreateQuickNoteDto,
   Tag,
   CreateTagDto,
-  HabitCompletion
+  HabitCompletion,
+  ChangePasswordRequestDTO,
+  ForgotPasswordRequestDTO
 } from '../../types/api';
 import Cookies from 'js-cookie'
 
@@ -46,6 +48,18 @@ class ApiService {
     const response = await this.axiosInstance.delete('/auth/session', { 
       data: { refreshToken } 
     });
+    return response.data;
+  }
+
+  // Password Endpoints
+  async changePasswordRequest(changePasswordData: ChangePasswordRequestDTO) {
+    const response = await this.axiosInstance.post('/password/change', changePasswordData);
+    return response.data;
+  }
+
+  async sendRecoverPasswordEmail(email: ForgotPasswordRequestDTO) {
+    const response = await this.axiosInstance.post('/password/forgot', email);
+    console.log(response)
     return response.data;
   }
 

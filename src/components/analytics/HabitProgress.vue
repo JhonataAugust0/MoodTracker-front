@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import type { Habit } from '../../types/api'
+import MaximizedView from './MaximizedView.vue'
+
 
 const { t } = useI18n()
 const habitStore = useHabitStore()
+const showMaximized = ref(false)
+
 
 onMounted(async () => {
   await habitStore.fetchHabits()

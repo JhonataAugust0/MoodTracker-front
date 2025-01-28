@@ -96,3 +96,14 @@ export interface CreateTagDto {
   color?: string;
   timestamp?: string;
 }
+
+export interface ChangePasswordRequestDTO {
+  email: string;
+  token: string;
+  password: string;
+  newPassword: string;
+};
+
+export interface ForgotPasswordRequestDTO {
+  email: string;
+};

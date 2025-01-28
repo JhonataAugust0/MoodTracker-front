@@ -6,21 +6,31 @@ export default {
   auth: {
     login: 'Login',
     register: 'Register',
-    name: 'Name',
     email: 'Email',
     password: 'Password',
-    confirmPassword: 'Confirm Password',
     loginButton: 'Sign In',
     registerButton: 'Sign Up',
     noAccount: "Don't have an account?",
     hasAccount: 'Already have an account?',
     registerLink: 'Register now',
     loginLink: 'Login here',
-    namePlaceholder: 'Enter your name',
-    emailPlaceholder: 'Enter your email',
-    passwordPlaceholder: 'Enter your password',
-    confirmPasswordPlaceholder: 'Confirm your password',
-    passwordMismatch: 'Passwords do not match'
+    changePassword: 'Change Password',
+    currentPassword: 'Current Password',
+    newPassword: 'New Password',
+    confirmNewPassword: 'Confirm New Password',
+    changePasswordButton: 'Change Password',
+    passwordChangeSuccess: 'Password changed successfully! Redirecting to login...',
+    passwordTooShort: 'Password must be at least 6 characters long',
+    changePasswordError: 'Error changing password. Please try again.',
+    currentPasswordPlaceholder: 'Enter your current password',
+    newPasswordPlaceholder: 'Enter your new password',
+    confirmNewPasswordPlaceholder: 'Confirm your new password',
+    backToLogin: 'Remember your password?',
+    forgotPassword: "Forgot your password?",
+    resetPassword: "Reset your password",
+    sendResetLink: "Send reset link",
+    resetLinkSent: "Reset link sent to your email",
+    backToChangePassword: "Back to change password"
   },
   buttons: {
     save: 'Save',
@@ -95,6 +105,22 @@ export default {
       yearly: 'Yearly',
       custom: 'Custom'
     }
+  },
+  footer: {
+    copyright: 'MoodTracker. All rights reserved.',
+    termsOfUse: 'Terms of Use',
+    contact: 'Contact Us'
+  },
+  notFound: {
+    errorCode: "4😵4",
+    title: "Oops! Page Not Found",
+    description: "Looks like you got lost in space-time...",
+    emoji: "🚀✨",
+    quote: {
+      text: "\"In the end, it's not the years in your life that count, but the life in your years...\n...and the pages you can find!\"",
+      author: "- Abraham Lincoln (maybe)"
+    },
+    button: "Back to Home 🏠"
   },
   terms: {
     title: "Terms of Use",
@@ -187,10 +213,5 @@ export default {
     ],
     contact:
       "Thank you for using MoodTracker! We hope to help you improve your well-being and productivity."
-  },
-  footer: {
-    copyright: 'MoodTracker. All rights reserved.',
-    termsOfUse: 'Terms of Use',
-    contact: 'Contact Us'
   }
 }
