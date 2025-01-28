@@ -3,9 +3,11 @@ import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import { format } from 'date-fns'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const { t } = useI18n()
 const habitStore = useHabitStore()
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 const chartData = computed(() => {
   if (habitStore.isLoading) return []
@@ -27,7 +29,7 @@ function getTargetByFrequency(frequency: string) {
 }
 
 onMounted(async () => {
-  await habitStore.fetchHabits()
+  await fetchWithTimeout(() => habitStore.fetchHabits())
 })
 </script>
 

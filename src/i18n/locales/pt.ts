@@ -124,6 +124,17 @@ export default {
     },
     button: "Voltar para Casa 🏠"
   },
+  serverError: {
+    errorCode: "500",
+    title: "Ops! Nosso servidor está tirando uma soneca",
+    description: "Não se preocupe, às vezes até os servidores precisam descansar um pouco. Estamos tentando acordá-lo!",
+    emoji: "😴",
+    quote: {
+      text: "Até as melhores máquinas precisam de uma pausa",
+      author: "- Um servidor cansado"
+    },
+    button: "Tentar Novamente"
+  },
   terms: {
     title: 'Termos de Uso',
     lastUpdated: 'Última atualização: Janeiro 2024',

@@ -5,6 +5,8 @@ import { useHabitStore } from '../../stores/habit'
 import MoodCalendar from './MoodCalendar.vue'
 import MoodChart from './MoodChart.vue'
 import HabitProgress from './HabitProgress.vue'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
+
 
 const props = defineProps<{
   show: boolean
@@ -19,6 +21,7 @@ const emit = defineEmits<{
 const viewMode = ref<'calendar' | 'chart'>(props.initialView)
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement
@@ -29,8 +32,8 @@ const handleClickOutside = (event: MouseEvent) => {
 
 onMounted(async () => {
   if (props.component === 'habit') {
-    await habitStore.fetchHabits()
-  } else if (props.component === 'mood') {
+    await fetchWithTimeout(() => habitStore.fetchHabits())
+  } else if (props.component === 'mood'){
     await moodStore.fetchMoods()
   }
 })

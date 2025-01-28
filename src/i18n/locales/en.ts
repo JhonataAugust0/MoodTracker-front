@@ -122,6 +122,17 @@ export default {
     },
     button: "Back to Home 🏠"
   },
+  serverError: {
+    errorCode: "500",
+    title: "Oops! Our server is taking a nap",
+    description: "Don't worry, sometimes even servers need a little rest. We're trying to wake it up!",
+    emoji: "😴",
+    quote: {
+      text: "Even the best machines need a break",
+      author: "- A tired server"
+    },
+    button: "Try Again"
+  },
   terms: {
     title: "Terms of Use",
     lastUpdated: "Last updated: January 2024",

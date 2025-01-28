@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import ChangePassword from '../views/ChangePassword.vue'
 import NotFound from '../views/NotFound.vue'
 import { useAuthStore } from '../stores/auth'
+import ServerError from '../views/ServerError.vue'
 
 
 const router = createRouter({
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/change-password',
       name: 'changePassword',
       component: ChangePassword
+    },
+    {
+      path: '/500',
+      name: 'ServerError',
+      component: ServerError
     },
     {
       path: '/:catchAll(.*)',

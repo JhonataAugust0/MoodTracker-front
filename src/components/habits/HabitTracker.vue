@@ -4,14 +4,18 @@ import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import HabitList from './HabitList.vue'
 import NewHabitForm from './NewHabitForm.vue'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const { t } = useI18n()
 const showNewHabitForm = ref(false)
 const habitStore = useHabitStore()
 
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+
 onMounted(async () => {
-  await habitStore.fetchHabits()
+  await fetchWithTimeout(() => habitStore.fetchHabits())
 })
+
 </script>
 
 <template>

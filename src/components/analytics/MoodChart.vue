@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
 import { useMoodStore } from '../../stores/mood'
 import MaximizedView from './MaximizedView.vue'
 
@@ -9,6 +10,7 @@ const showMaximized = ref(false)
 
 const { t } = useI18n()
 const hoveredBar = ref<{ date: string, mood: number } | null>(null)
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 const moods = [
   { value: 0, emoji: '😢', label: 'Very Sad' },
@@ -21,9 +23,11 @@ const moods = [
   { value: 7, emoji: '😄', label: 'Excellent' }
 ]
 
+
 onMounted(async () => {
-  await moodStore.fetchMoods()
+  await fetchWithTimeout(() => moodStore.fetchMoods())
 })
+
 
 const moodData = computed(() => {
   const entries = moodStore.moodEntries;
@@ -74,6 +78,11 @@ const getMoodLabel = (moodIndex: number) => {
 
 <template>
   <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 relative">
+    
+    <div v-if="isLoading" class="absolute inset-0 bg-white/50 dark:bg-gray-800/50 flex items-center justify-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
+    </div>
+
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold text-gray-800 dark:text-white">{{ t(`dashboard.moodLog`) }}</h2>
       <button

@@ -3,12 +3,14 @@
 import { computed, onMounted } from 'vue'
 import type { Note } from '../../stores/note'
 import { useNoteStore } from '../../stores/note'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const props = defineProps<{
   notes: Note[]
 }>()
 
 const noteStore = useNoteStore()
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 const sortedNotes = computed(() => {
   return [...props.notes].sort((a, b) => 
@@ -17,7 +19,7 @@ const sortedNotes = computed(() => {
 })
 
 onMounted(async () => {
-  await noteStore.fetchNotes()
+  await fetchWithTimeout(() => noteStore.fetchNotes())
 })
 </script>
 

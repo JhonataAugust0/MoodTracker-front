@@ -132,6 +132,7 @@ class ApiService {
   // Quick Notes Endpoints
   async createQuickNote(noteData: CreateQuickNoteDto): Promise<QuickNote> {
     const response = await this.axiosInstance.post('/notes', noteData);
+    console.log(response)
     return response.data;
   }
 

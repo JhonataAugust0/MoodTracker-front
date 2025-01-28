@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useMoodStore } from '../../stores/mood'
 import { useHabitStore } from '../../stores/habit'
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns'
+import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const props = defineProps<{
   moodData?: any[]
@@ -13,11 +14,12 @@ const props = defineProps<{
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
 const currentDate = ref(new Date())
+const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 onMounted(async () => {
   await Promise.all([
-    habitStore.fetchHabits(),
-    moodStore.fetchMoods()
+    await fetchWithTimeout(() => habitStore.fetchHabits()),
+    await fetchWithTimeout(() => moodStore.fetchMoods())
   ])
 })
 
