@@ -15,6 +15,11 @@ const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 
+onMounted(async () => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  Cookies.set('timezone', timezone)
+})
+
 const handleSubmit = async () => {
   if (isLogin.value) {
     await authStore.login(email.value, password.value)

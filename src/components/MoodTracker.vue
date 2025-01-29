@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useMoodStore } from '../stores/mood'
+import Cookies from 'js-cookie'
 
 const { t } = useI18n()
 const moodStore = useMoodStore()
@@ -21,7 +22,7 @@ const moods = [
 
 const saveMoodEntry = async () => {
   const selectedMoodLabel = moods.find(mood => mood.value === selectedMood.value)?.labelKey || ''
-  await moodStore.addMoodEntry(selectedMoodLabel, selectedMood.value, note.value )
+  await moodStore.addMoodEntry(selectedMoodLabel, selectedMood.value, note.value, Cookies.get('timezone'))
   note.value = ''
 }
 </script>

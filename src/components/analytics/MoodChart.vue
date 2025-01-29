@@ -37,12 +37,12 @@ const moodData = computed(() => {
   const entries = moodStore.moodEntries;
   
   const groupedEntries = entries.reduce((acc: { [key: string]: any }, entry) => {
-    const date = new Date(entry.timestamp).toISOString().split('T')[0];
+    const date = new Date(entry.timestamp).toISOString().split(":")[0] + ":00:00"; 
     console.log(date);
     if (!acc[date]) {
       acc[date] = {
-        frequencies: [0, 0, 0, 0, 0, 0, 0], // Array aumentado para 7 posições
-        notes: [[], [], [], [], [], [], []]  // Array aumentado para 7 posições
+        frequencies: [0, 0, 0, 0, 0, 0, 0], 
+        notes: [[], [], [], [], [], [], []] 
       };
     }
     
@@ -109,6 +109,7 @@ const getMoodLabel = (moodIndex: number) => {
     </div>
 
     <div class="h-64 flex items-end justify-between gap-2 relative">
+      {{   console.log(moodData) }}
       <div
         v-for="day in moodData"
         :key="day.date"

@@ -9,13 +9,16 @@ const apiService = ApiService
 export const useMoodStore = defineStore('mood', () => {
   const moodEntries = ref<Mood[]>([])
   
-  async function addMoodEntry(moodType: string, intensity: number, notes: string, tagIds: number[] = []) {
+  async function addMoodEntry(moodType: string, intensity: number, notes: string, timeZone: string, tagIds: number[] = []) {
+    let localUserDate = new Date().toLocaleString('en-CA', { timeZone: timeZone }); 
+    localUserDate = localUserDate.replace(', ', 'T').split(' ')[0]
+    
     const entry: CreateMoodDto = {
       moodType,
       intensity,
       notes,
       tagIds,
-      timestamp: new Date().toISOString()
+      timestamp: localUserDate
     }
     
     try {
