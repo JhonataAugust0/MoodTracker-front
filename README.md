@@ -39,7 +39,7 @@
 ### Instalação
 ```bash
 # Clone o repositório
-git clone https://github.com/yourusername/moodtracker-frontend.git
+git clone https://github.com/JhonataAugust0/moodtracker-frontend.git
 
 # Instale as dependências
 npm install
