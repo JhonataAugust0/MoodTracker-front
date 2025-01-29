@@ -67,7 +67,6 @@ const handleSubmit = async () => {
 
 const handleResetRequest = async () => {
   try {
-    console.log(email.value)
     let result = await authStore.recoverPasswordEmail({ email: email.value })
       if (result){
         success.value = true

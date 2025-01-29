@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { ChangePasswordRequestDTO, ForgotPasswordRequestDTO } from '../types/api'
 
 const apiService = ApiService
+const isInitialized = ref(false)
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false)
@@ -13,12 +14,22 @@ export const useAuthStore = defineStore('auth', () => {
   const login = async (email: string, password: string) => {
     if (email && password) {
       let response = await apiService.login({ email, password })
-      if (response.success === true)
-      {
+      if (response.success === true) {
+        Cookies.set('auth_token', response.token)
         isAuthenticated.value = true
         user.value = { email }
-        Cookies.set('auth_token', response.token)
+        isInitialized.value = true
       }
+    }
+  }
+
+  const initialize = async () => {
+    const token = Cookies.get('auth_token')
+    if (token) {
+      isAuthenticated.value = true
+      isInitialized.value = true
+    } else {
+      isInitialized.value = true
     }
   }
 
@@ -65,6 +76,7 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     changePassword,
     recoverPasswordEmail,
+    initialize,
     user,
     register,
     login,

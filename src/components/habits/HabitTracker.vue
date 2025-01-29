@@ -5,15 +5,21 @@ import { useHabitStore } from '../../stores/habit'
 import HabitList from './HabitList.vue'
 import NewHabitForm from './NewHabitForm.vue'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
+import { useAuthStore } from '../../stores/auth'
 
 const { t } = useI18n()
 const showNewHabitForm = ref(false)
+const authStore = useAuthStore()
 const habitStore = useHabitStore()
 
 const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
+
 onMounted(async () => {
-  await fetchWithTimeout(() => habitStore.fetchHabits())
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await fetchWithTimeout(() => habitStore.fetchHabits())
+  }
 })
 
 </script>

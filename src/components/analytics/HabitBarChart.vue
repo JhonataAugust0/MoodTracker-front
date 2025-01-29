@@ -2,10 +2,12 @@
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
+import { useAuthStore } from '../../stores/auth'
 import { format } from 'date-fns'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const { t } = useI18n()
+const authStore = useAuthStore()
 const habitStore = useHabitStore()
 const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
@@ -29,7 +31,10 @@ function getTargetByFrequency(frequency: string) {
 }
 
 onMounted(async () => {
-  await fetchWithTimeout(() => habitStore.fetchHabits())
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await fetchWithTimeout(() => habitStore.fetchHabits())
+  }
 })
 </script>
 

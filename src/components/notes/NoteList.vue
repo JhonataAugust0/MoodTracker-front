@@ -4,12 +4,14 @@ import { computed, onMounted } from 'vue'
 import type { Note } from '../../stores/note'
 import { useNoteStore } from '../../stores/note'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
+import { useAuthStore } from '../../stores/auth'
 
 const props = defineProps<{
   notes: Note[]
 }>()
 
 const noteStore = useNoteStore()
+const authStore = useAuthStore()
 const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
 const sortedNotes = computed(() => {
@@ -18,8 +20,12 @@ const sortedNotes = computed(() => {
   )
 })
 
+
 onMounted(async () => {
-  await fetchWithTimeout(() => noteStore.fetchNotes())
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await fetchWithTimeout(() => noteStore.fetchNotes())
+  }
 })
 </script>
 

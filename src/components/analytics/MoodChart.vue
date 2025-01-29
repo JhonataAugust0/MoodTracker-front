@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
 import { useMoodStore } from '../../stores/mood'
 import MaximizedView from './MaximizedView.vue'
+import { useAuthStore } from '../../stores/auth'
 
+const authStore = useAuthStore()
 const moodStore = useMoodStore()
 const showMaximized = ref(false)
 
@@ -25,15 +27,18 @@ const moods = [
 
 
 onMounted(async () => {
-  await fetchWithTimeout(() => moodStore.fetchMoods())
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await fetchWithTimeout(() => moodStore.fetchMoods())
+  }
 })
-
 
 const moodData = computed(() => {
   const entries = moodStore.moodEntries;
   
   const groupedEntries = entries.reduce((acc: { [key: string]: any }, entry) => {
     const date = new Date(entry.timestamp).toISOString().split('T')[0];
+    console.log(date);
     if (!acc[date]) {
       acc[date] = {
         frequencies: [0, 0, 0, 0, 0, 0, 0], // Array aumentado para 7 posições

@@ -5,6 +5,8 @@ import { useHabitStore } from '../../stores/habit'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
 import type { Habit } from '../../types/api'
 import MaximizedView from './MaximizedView.vue'
+import { useAuthStore } from '../../stores/auth'
+const authStore = useAuthStore()
 
 
 const { t } = useI18n()
@@ -12,8 +14,12 @@ const habitStore = useHabitStore()
 const showMaximized = ref(false)
 const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
+
 onMounted(async () => {
-  await fetchWithTimeout(() => habitStore.fetchHabits())
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await fetchWithTimeout(() => habitStore.fetchHabits())
+  }
 })
 
 const habitProgress = computed(() => {

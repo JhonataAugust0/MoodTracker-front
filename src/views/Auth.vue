@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useI18n } from 'vue-i18n'
+import Cookies from 'js-cookie'
 
 const { t } = useI18n()
 const router = useRouter()

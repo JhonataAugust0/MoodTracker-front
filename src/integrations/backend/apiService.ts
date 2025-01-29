@@ -24,9 +24,18 @@ class ApiService {
     baseURL: BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': Cookies.get('auth_token'),
     },
   });
+
+  constructor() {
+    this.axiosInstance.interceptors.request.use((config) => {
+      const token = Cookies.get('auth_token');
+      if (token) {
+        config.headers.Authorization = `${token}`;
+      }
+      return config;
+    });
+  }
 
   // Authentication Endpoints
   async login(loginData: LoginRequest) {
@@ -59,7 +68,6 @@ class ApiService {
 
   async sendRecoverPasswordEmail(email: ForgotPasswordRequestDTO) {
     const response = await this.axiosInstance.post('/password/forgot', email);
-    console.log(response)
     return response.data;
   }
 
@@ -132,7 +140,6 @@ class ApiService {
   // Quick Notes Endpoints
   async createQuickNote(noteData: CreateQuickNoteDto): Promise<QuickNote> {
     const response = await this.axiosInstance.post('/notes', noteData);
-    console.log(response)
     return response.data;
   }
 

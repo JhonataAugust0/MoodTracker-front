@@ -6,6 +6,7 @@ import MoodCalendar from './MoodCalendar.vue'
 import MoodChart from './MoodChart.vue'
 import HabitProgress from './HabitProgress.vue'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
+import { useAuthStore } from '../../stores/auth'
 
 
 const props = defineProps<{
@@ -18,6 +19,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const authStore = useAuthStore()
 const viewMode = ref<'calendar' | 'chart'>(props.initialView)
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
@@ -30,13 +32,18 @@ const handleClickOutside = (event: MouseEvent) => {
   }
 }
 
+
 onMounted(async () => {
-  if (props.component === 'habit') {
-    await fetchWithTimeout(() => habitStore.fetchHabits())
-  } else if (props.component === 'mood'){
-    await moodStore.fetchMoods()
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    if (props.component === 'habit') {
+      await fetchWithTimeout(() => habitStore.fetchHabits())
+    } 
+    else if (props.component === 'mood'){
+      await moodStore.fetchMoods()
+    }
   }
-})
+});
 
 const toggleView = () => {
   viewMode.value = viewMode.value === 'calendar' ? 'chart' : 'calendar'

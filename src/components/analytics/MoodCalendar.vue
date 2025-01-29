@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useMoodStore } from '../../stores/mood'
 import { useHabitStore } from '../../stores/habit'
+import { useAuthStore } from '../../stores/auth'
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
@@ -16,13 +17,17 @@ const habitStore = useHabitStore()
 const currentDate = ref(new Date())
 const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
 
+const authStore = useAuthStore()
+
 onMounted(async () => {
-  await Promise.all([
+  await authStore.initialize()
+  if (authStore.isAuthenticated) {
+    await Promise.all([
     await fetchWithTimeout(() => habitStore.fetchHabits()),
     await fetchWithTimeout(() => moodStore.fetchMoods())
   ])
+  }
 })
-
 
 const calendarDays = computed(() => {
   const start = startOfMonth(currentDate.value)
