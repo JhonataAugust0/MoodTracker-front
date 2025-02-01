@@ -38,7 +38,6 @@ const moodData = computed(() => {
   
   const groupedEntries = entries.reduce((acc: { [key: string]: any }, entry) => {
     const date = new Date(entry.timestamp).toISOString().split(":")[0] + ":00:00"; 
-    console.log(date);
     if (!acc[date]) {
       acc[date] = {
         frequencies: [0, 0, 0, 0, 0, 0, 0], 
@@ -109,7 +108,6 @@ const getMoodLabel = (moodIndex: number) => {
     </div>
 
     <div class="h-64 flex items-end justify-between gap-2 relative">
-      {{   console.log(moodData) }}
       <div
         v-for="day in moodData"
         :key="day.date"

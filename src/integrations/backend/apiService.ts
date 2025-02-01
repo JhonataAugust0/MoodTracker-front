@@ -188,6 +188,18 @@ class ApiService {
     const response = await this.axiosInstance.delete(`/tags/${id}`);
     return response.data;
   }
+
+  // Notifications Endpoints
+
+  async getNotifications(id: number){
+    const response = await this.axiosInstance.get(`/notification?userId=${id}`);
+    return response.data;
+  }
+
+  async markNotificationAsRead(){
+    await this.axiosInstance.post(`/notification/mark-read`);
+    return;
+  }
 }
 
 export default new ApiService();

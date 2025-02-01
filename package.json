@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.1",
+    "@microsoft/signalr": "^8.0.7",
     "@vueuse/core": "^10.7.2",
     "axios": "^1.6.7",
     "date-fns": "^2.30.0",
