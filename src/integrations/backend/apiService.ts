@@ -191,13 +191,13 @@ class ApiService {
 
   // Notifications Endpoints
 
-  async getNotifications(id: number){
-    const response = await this.axiosInstance.get(`/notification?userId=${id}`);
+  async getNotifications(){
+    const response = await this.axiosInstance.get(`/notifications`);
     return response.data;
   }
 
   async markNotificationAsRead(){
-    await this.axiosInstance.post(`/notification/mark-read`);
+    await this.axiosInstance.post(`/notifications/mark-read`);
     return;
   }
 }
