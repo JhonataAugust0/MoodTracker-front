@@ -22,7 +22,7 @@ const moods = [
 
 const saveMoodEntry = async () => {
   const selectedMoodLabel = moods.find(mood => mood.value === selectedMood.value)?.labelKey || ''
-  await moodStore.addMoodEntry(selectedMoodLabel, selectedMood.value, note.value, Cookies.get('timezone'))
+  await moodStore.addMoodEntry(selectedMoodLabel, selectedMood.value, note.value, Cookies.get('timezone') ?? 'america/brasilia')
   note.value = ''
 }
 </script>

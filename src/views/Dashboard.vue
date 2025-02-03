@@ -15,7 +15,7 @@ import { useApiWithTimeout } from '../composables/timeoutHandler'
 const { t } = useI18n()
 const authStore = useAuthStore()
 const { connection, initSignalR, fetchPendingNotifications, setToastRef } = useNotifications()
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 const toastNotificationRef = ref()
 
 onMounted(async () => {

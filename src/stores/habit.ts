@@ -61,27 +61,27 @@ export const useHabitStore = defineStore('habit', () => {
     }
   }
 
-  const updateHabit = (habitId: string, updates: Partial<Habit>) => {
-    const index = habits.value.findIndex(h => h.id === habitId)
-    if (index !== -1) {
-      habits.value[index] = {
-        ...habits.value[index],
-        ...updates
-      }
-    }
-  }
+  // const updateHabit = (habitId: number, updates: Partial<Habit>) => {
+  //   const index = habits.value.findIndex(h => h.id === habitId)
+  //   if (index !== -1) {
+  //     habits.value[index] = {
+  //       ...habits.value[index],
+  //       ...updates
+  //     }
+  //   }
+  // }
 
-  const deleteHabit = (habitId: string) => {
-    habits.value = habits.value.filter(h => h.id !== habitId)
-    habitChecks.value = habitChecks.value.filter(check => check.habitId !== habitId)
-  }
+  // const deleteHabit = (habitId: number) => {
+  //   habits.value = habits.value.filter(h => h.id !== habitId)
+  //   habitChecks.value = habitChecks.value.filter(check => check.habitId !== habitId)
+  // }
 
-  const updateHabitTags = (habitId: string, tags: string[]) => {
-    const habit = habits.value.find(h => h.id === habitId)
-    if (habit) {
-      habit.tags = tags
-    }
-  }
+  // const updateHabitTags = (habitId: number, tags: string[]) => {
+  //   const habit = habits.value.find(h => h.id === habitId)
+  //   if (habit) {
+  //     habit.tags = tags
+  //   }
+  // }
   
   function getHabitProgress(habitId: number) {
     return habitCompletions.value.filter(c => c.habitId === habitId).length

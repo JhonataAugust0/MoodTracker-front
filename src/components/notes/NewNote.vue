@@ -16,17 +16,17 @@ const isSubmitting = ref(false)
 
 const addTag = () => {
   if (tagInput.value.trim()) {
-    tags.value.push(tagInput.value.trim())
+    tags.value = [...tags.value, tagInput.value.trim()]
     tagInput.value = ''
   }
 }
 
 const save = async () => {
   if (!content.value.trim()) return
-  
   isSubmitting.value = true
   try {
-    await emit('save', content.value, color.value, tags.value)
+    const tagsArray = Array.from(tags.value)
+    emit('save', content.value, color.value, tagsArray)
     emit('close')
   } finally {
     isSubmitting.value = false

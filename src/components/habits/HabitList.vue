@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { Habit } from '../../stores/habit'
+import type { Habit } from '../../types/api'
 import { useHabitStore } from '../../stores/habit'
 
 const { t } = useI18n()

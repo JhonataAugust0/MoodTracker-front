@@ -12,7 +12,7 @@ const showNewHabitForm = ref(false)
 const authStore = useAuthStore()
 const habitStore = useHabitStore()
 
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 
 onMounted(async () => {

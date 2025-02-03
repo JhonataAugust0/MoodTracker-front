@@ -23,7 +23,7 @@ const authStore = useAuthStore()
 const viewMode = ref<'calendar' | 'chart'>(props.initialView)
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement

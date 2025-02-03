@@ -1,26 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useHabitStore } from '../../stores/habit'
 
-const props = defineProps<{
-  habitId: string
-  tags: string[]
-}>()
-
-const habitStore = useHabitStore()
 const tagInput = ref('')
+const tags = ref<string[]>([])
 
 const addTag = () => {
   if (tagInput.value.trim()) {
-    const newTags = [...props.tags, tagInput.value.trim()]
-    habitStore.updateHabitTags(props.habitId, newTags)
+    tags.value.push(tagInput.value.trim())
     tagInput.value = ''
   }
 }
 
 const removeTag = (tag: string) => {
-  const newTags = props.tags.filter(t => t !== tag)
-  habitStore.updateHabitTags(props.habitId, newTags)
+  // const newTags = props.tags.filter(t => t !== tag)
+  // habitStore.updateHabitTags(props.habitId, newTags)
+  console.log(tag)
 }
 </script>
 

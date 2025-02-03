@@ -5,13 +5,11 @@ import Cookies from 'js-cookie'
 import { ChangePasswordRequestDTO, ForgotPasswordRequestDTO } from '../types/api'
 
 const apiService = ApiService
-const isInitialized = ref(false)
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false)
   const user = ref<null | { id: number }>(null)
 
-  const currentUser = computed(() => user.value)
   
   const loadUserFromStorage = () => {
     const userId = Cookies.get('userId')

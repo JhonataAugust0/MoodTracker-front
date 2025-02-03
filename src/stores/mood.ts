@@ -11,14 +11,13 @@ export const useMoodStore = defineStore('mood', () => {
   
   async function addMoodEntry(moodType: string, intensity: number, notes: string, timeZone: string, tagIds: number[] = []) {
     let localUserDate = new Date().toLocaleString('en-CA', { timeZone: timeZone }); 
-    localUserDate = localUserDate.replace(', ', 'T').split(' ')[0]
-    
+    localUserDate = localUserDate.replace(', ', 'T').split(' ')[0] + ':00.35.993Z'
+
     const entry: CreateMoodDto = {
       moodType,
       intensity,
       notes,
       tagIds,
-      timestamp: localUserDate
     }
     
     try {

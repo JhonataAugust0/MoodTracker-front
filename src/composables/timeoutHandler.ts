@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 export function useApiWithTimeout(timeoutMs = 15000, retries = 2) {
   const router = useRouter()
   const isLoading = ref(false)
-  const error = ref(null)
+  const error = ref<unknown | null>(null)
 
   async function fetchWithTimeout<T>(apiCall: () => Promise<T>): Promise<T | null> {
     isLoading.value = true

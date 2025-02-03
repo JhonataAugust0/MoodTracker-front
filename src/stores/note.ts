@@ -32,10 +32,15 @@ export const useNoteStore = defineStore('note', () => {
 
   const addNote = async (content: string, color: string = '#ffffff', tags: string[] = []) => {
     try {
+
+      const tagIds = Array.from(tags)
+        .map(tag => parseInt(tag))
+        .filter((id): id is number => !isNaN(id))
       const noteData: CreateQuickNoteDto = {
         content,
-        tagIds: tags.map(tag => parseInt(tag))
+        tagIds
       }
+      
       const newNote = await ApiService.createQuickNote(noteData)
       notes.value.push({
         ...newNote,

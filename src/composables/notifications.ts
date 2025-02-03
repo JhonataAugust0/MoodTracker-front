@@ -3,7 +3,6 @@ import { HubConnectionBuilder, HubConnection } from '@microsoft/signalr'
 import { useAuthStore } from '../stores/auth'
 import ApiService from '../integrations/backend/apiService'
 import Cookies from 'js-cookie'
-import { storeToRefs } from 'pinia'
 
 const toastRef = ref()
 
@@ -24,7 +23,7 @@ export const useNotifications = () => {
           }
         })
         .withAutomaticReconnect({
-          nextRetryDelayInMilliseconds: (retryContext) => {
+          nextRetryDelayInMilliseconds: () => {
             return Math.random() * 5000 + 2000;
           }
         })
@@ -48,7 +47,7 @@ export const useNotifications = () => {
         return
       }
       
-      const notifications = await ApiService.getNotifications(parseInt(userId))
+      const notifications = await ApiService.getNotifications()
       
       if (Array.isArray(notifications)) {
         notifications.forEach(message => {

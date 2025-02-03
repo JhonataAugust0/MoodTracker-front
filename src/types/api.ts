@@ -30,6 +30,7 @@ export interface Habit {
   frequencyTarget: number;
   frequencyType: number;
   color: string;
+  target: number;
 }
 
 export enum HabitFrequency {

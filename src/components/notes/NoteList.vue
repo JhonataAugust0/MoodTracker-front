@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const noteStore = useNoteStore()
 const authStore = useAuthStore()
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 const sortedNotes = computed(() => {
   return [...props.notes].sort((a, b) => 
@@ -20,6 +20,12 @@ const sortedNotes = computed(() => {
   )
 })
 
+const handleInput = (e: Event, note: Note) => {
+  const target = e.target as HTMLInputElement;
+  if (target) {
+    noteStore.updateNote(note.id, target.value);
+  }
+};
 
 onMounted(async () => {
   await authStore.initialize()
@@ -47,7 +53,7 @@ onMounted(async () => {
     >
       <textarea
         :value="note.content"
-        @input="e => noteStore.updateNote(note.id, (e.target).value)"
+        @input="(e) => handleInput(e, note)"
         class="w-full bg-transparent resize-none"
         rows="4"
       ></textarea>

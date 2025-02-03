@@ -2,7 +2,6 @@
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import { useFeatures } from '../composables/useFeatures'
-import { MessageSquare, Calendar, BarChart2, Target } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const { features } = useFeatures()

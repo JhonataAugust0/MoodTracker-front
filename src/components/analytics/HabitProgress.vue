@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
-import type { Habit } from '../../types/api'
-import MaximizedView from './MaximizedView.vue'
 import { useAuthStore } from '../../stores/auth'
 const authStore = useAuthStore()
 
 
 const { t } = useI18n()
 const habitStore = useHabitStore()
-const showMaximized = ref(false)
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 
 onMounted(async () => {

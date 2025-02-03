@@ -6,7 +6,6 @@ import Terms from '../views/Terms.vue'
 import Cookies from 'js-cookie'
 import ChangePassword from '../views/ChangePassword.vue'
 import NotFound from '../views/NotFound.vue'
-import { useAuthStore } from '../stores/auth'
 import ServerError from '../views/ServerError.vue'
 
 
@@ -51,7 +50,7 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {  
+router.beforeEach((to, _from, next) => {  
   if (to.meta.requiresAuth && !Cookies.get('auth_token')) {
     next('/auth')
   } else {

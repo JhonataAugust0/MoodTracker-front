@@ -122,11 +122,11 @@ const getMoodLabel = (moodIndex: number) => {
               height: `${calculateBarHeight(frequency)}rem`,
               opacity: frequency > 0 ? 0.6 + (mood / day.moodFrequencies.length) * 0.4 : 0
             }"
-            @mouseenter="hoveredBar = { date: day.date, mood: parseInt(mood) }"
+            @mouseenter="hoveredBar = { date: day.date, mood: mood }"
             @mouseleave="hoveredBar = null"
           >
             <div
-              v-if="hoveredBar?.date === day.date && hoveredBar?.mood === parseInt(mood) && frequency > 0"
+              v-if="hoveredBar?.date === day.date && hoveredBar?.mood === mood && frequency > 0"
               class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded shadow-lg text-sm whitespace-nowrap z-10"
             >
               <div class="text-center mb-1">

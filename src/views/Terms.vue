@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { ChevronDown } from 'lucide-vue'
 import { computed } from 'vue'
 
-const { t, locale, tm } = useI18n()
+const { t, tm } = useI18n()
 
 const allSections = computed<any[]>(() => {
   return tm('terms.sections') || []
 })
 
-const scrollToBottom = () => {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
-}
 </script>
 
 <template>

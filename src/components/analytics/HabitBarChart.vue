@@ -3,13 +3,12 @@ import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHabitStore } from '../../stores/habit'
 import { useAuthStore } from '../../stores/auth'
-import { format } from 'date-fns'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
 const habitStore = useHabitStore()
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 const chartData = computed(() => {
   if (habitStore.isLoading) return []
@@ -17,18 +16,10 @@ const chartData = computed(() => {
   return habitStore.habits.map(habit => ({
     name: habit.name,
     completions: habitStore.getHabitProgress(habit.id),
-    color: '#6366f1'
+    color: '#6366f1',
+    target: habit.target,
   }))
 })
-
-function getTargetByFrequency(frequency: string) {
-  switch(frequency) {
-    case 'daily': return 30
-    case 'weekly': return 4
-    case 'monthly': return 1
-    default: return 30
-  }
-}
 
 onMounted(async () => {
   await authStore.initialize()

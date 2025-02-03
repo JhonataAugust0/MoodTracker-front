@@ -3,19 +3,13 @@ import { computed, onMounted, ref } from 'vue'
 import { useMoodStore } from '../../stores/mood'
 import { useHabitStore } from '../../stores/habit'
 import { useAuthStore } from '../../stores/auth'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay } from 'date-fns'
+import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns'
 import { useApiWithTimeout } from '../../composables/timeoutHandler'
-
-const props = defineProps<{
-  moodData?: any[]
-  habitData?: any[]
-}>()
-
 
 const moodStore = useMoodStore()
 const habitStore = useHabitStore()
 const currentDate = ref(new Date())
-const { fetchWithTimeout, isLoading } = useApiWithTimeout(30000, 2)
+const { fetchWithTimeout } = useApiWithTimeout(30000, 2)
 
 const authStore = useAuthStore()
 
@@ -60,19 +54,6 @@ const calendarDays = computed(() => {
     }
   })
 })
-
-const getMoodColor = (mood: number | null) => {
-  if (mood === null) return 'bg-gray-100 dark:bg-gray-700'
-  const colors = [
-    'bg-red-200',
-    'bg-orange-200',
-    'bg-yellow-200',
-    'bg-green-200',
-    'bg-blue-200',
-    'bg-purple-200'
-  ]
-  return colors[Math.floor(mood)]
-}
 
 const previousMonth = () => {
   currentDate.value = new Date(currentDate.value.getFullYear(), currentDate.value.getMonth() - 1)
